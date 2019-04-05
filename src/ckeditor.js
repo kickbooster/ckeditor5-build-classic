@@ -5,6 +5,7 @@
 
 // The editor creator to use.
 import ClassicEditorBase from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
+import InlineEditorBase from '@ckeditor/ckeditor5-editor-inline/src/inlineeditor';
 
 import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials';
 import Autoformat from '@ckeditor/ckeditor5-autoformat/src/autoformat';
@@ -19,10 +20,11 @@ import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph';
 import PasteFromOffice from '@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice';
 import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment';
 
-export default class ClassicEditor extends ClassicEditorBase {}
+class ClassicEditor extends ClassicEditorBase {}
+class InlineEditor extends InlineEditorBase {}
 
 // Plugins to include in the build.
-ClassicEditor.builtinPlugins = [
+const plugins = [
 	Essentials,
 	Autoformat,
 	Bold,
@@ -37,8 +39,11 @@ ClassicEditor.builtinPlugins = [
 	Alignment
 ];
 
+ClassicEditor.builtinPlugins = plugins;
+InlineEditor.builtinPlugins = plugins;
+
 // Editor configuration.
-ClassicEditor.defaultConfig = {
+const config = {
 	toolbar: {
 		items: [
 			'heading',
@@ -71,4 +76,11 @@ ClassicEditor.defaultConfig = {
 	},
 	// This value must be kept in sync with the language defined in webpack.config.js.
 	language: 'en'
+};
+
+ClassicEditor.defaultConfig = config;
+InlineEditor.defaultConfig = config;
+
+export default {
+	ClassicEditor, InlineEditor
 };
